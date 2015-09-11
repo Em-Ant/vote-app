@@ -17,7 +17,6 @@
           <div >
             <h4 class="text-center">{{thing.question}}</h4>
             <canvas id="{{ thing._id }}" class="chart chart-doughnut" data="thing.votes" labels="thing.options" legend="true"></canvas>
-            <p class="text-center">by <a href=#>{{thing.authorName}}</a></p>
           </div>
         </li>
       </ul>
