@@ -5,7 +5,7 @@
 
 'use strict';
 
-var Thing = require('../api/poll/poll.model');
+var Poll = require('../api/poll/poll.model');
 var User = require('../api/user/user.model');
 
 
@@ -40,18 +40,21 @@ John.save(function(err){
       question: 'Is this App a good one ?',
       options: ['Yes', 'No'],
       votes:[5,2],
+      popularity: 7,
       authorName: John.name,
       authorId: John._id,
     }, {
       question: 'Which is you favorite Guitar Hero ?',
       options: ['John Petrucci', 'Steve Vai', 'Michael Angelo Batio'],
       votes:[8,11,6],
+      popularity: 25,
       authorName: John.name,
       authorId: John._id,    
     }, {
       question: 'Which is your favorite Pasta Condiment ?',
       options: ['Ragù', 'Pesto', 'Cheese'],
-      votes:[7,8,6],
+      votes: [7,8,6],
+      popularity: 19,
       authorName: John.name,
       authorId: John._id,    
     });

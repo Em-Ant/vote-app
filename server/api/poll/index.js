@@ -5,11 +5,18 @@ var controller = require('./poll.controller');
 
 var router = express.Router();
 
+// Recent Custom Route
+router.get('/recent/', controller.recent);
+router.get('/popular/', controller.popular);
+
 router.get('/', controller.index);
 router.get('/:id', controller.show);
 router.post('/', controller.create);
 router.put('/:id', controller.update);
 router.patch('/:id', controller.update);
 router.delete('/:id', controller.destroy);
+
+
+
 
 module.exports = router;

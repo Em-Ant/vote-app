@@ -57,3 +57,21 @@ exports.destroy = function(req, res) {
 function handleError(res, err) {
   return res.status(500).send(err);
 }
+
+// Custom Actions
+exports.recent = function(req,res) {
+  console.log(req.params);
+  Poll.getRecent(req.query.num,req.query.ot,function (err, polls) {
+    if(err) { return handleError(res, err); }
+    return res.status(200).json(polls);
+  });
+}
+
+// Custom Actions
+exports.popular = function(req,res) {
+  console.log(req.params);
+  Poll.getPopular(function (err, polls) {
+    if(err) { return handleError(res, err); }
+    return res.status(200).json(polls);
+  });
+}

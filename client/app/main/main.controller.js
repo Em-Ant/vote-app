@@ -4,7 +4,7 @@ angular.module('fullstackApp')
   .controller('MainCtrl', function ($scope, $http) {
     $scope.awesomeThings = [];
 
-    $http.get('/api/polls').success(function(awesomeThings) {
+    $http.get('/api/polls/popular/').success(function(awesomeThings) {
       $scope.awesomeThings = awesomeThings;
     });
 

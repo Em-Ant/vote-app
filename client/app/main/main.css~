@@ -27,6 +27,9 @@
     background: #253e50;
 }
 
+.lead {
+  color: #d2d7d3;
+}
 .footer {
     text-align: center;
     padding: 30px 0;
