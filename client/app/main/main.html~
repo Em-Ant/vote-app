@@ -11,10 +11,7 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-      <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a href="#">Popular</a></li>
-        <li role="presentation"><a href="#">Recent</a></li>
-      </ul>
+      <h2>Popular Polls:</h2>
       <ul class="nav col-md-6 col-lg-6 col-sm-6" ng-repeat="thing in awesomeThings">
         <li>
           <div class="panel panel-default">
@@ -29,6 +26,7 @@
           </div>
         </li>
       </ul>
+      <p>Temporary InfoBox : {{info.pageCount}} {{info.itemCount}}</p>
     </div>
   </div>
 </div>

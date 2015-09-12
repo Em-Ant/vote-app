@@ -58,8 +58,6 @@ function handleError(res, err) {
   return res.status(500).send(err);
 }
 
-// ----------------------------------------------------------------------------
-
 /**
 * Custom Actions - using mongoose-paginate
 */

@@ -1,7 +1,9 @@
 'use strict';
 
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+var mongoose = require('mongoose');
+var paginate = require('mongoose-paginate');
+
+var Schema = mongoose.Schema;
 
 var PollSchema = new Schema({
   question: String,
@@ -16,19 +18,6 @@ var PollSchema = new Schema({
   }
 });
 
-PollSchema.statics = {
-  getRecent: function(num, olderThan, cb) {
-    this.find({createdOn: {$lt : olderThan || Date.now()}})
-    .sort('-createdOn')
-    .limit(num || 3)
-    .exec(cb);
-  },
-  
-  getPopular: function(cb) {
-    this.find()
-    .sort('-popularity')
-    .exec(cb);
-  }
-}
+PollSchema.plugin(paginate);
 
 module.exports = mongoose.model('Poll', PollSchema);
