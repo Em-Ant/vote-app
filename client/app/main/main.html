@@ -9,24 +9,24 @@
 </header>
 
 <div class="container">
-  <div class="row">
+  <div class="row top">
     <div class="col-lg-12">
-      <h2>Popular Polls:</h2>
-      <ul class="nav col-md-6 col-lg-6 col-sm-6" ng-repeat="thing in awesomeThings">
-        <li>
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title text-center"><a href=#>{{thing.question}}</a></h3>
-            </div>
-              <div class="panel-body">
-                        <canvas id="{{ thing._id }}" class="chart chart-doughnut" data="thing.votes" labels="thing.options" legend="true"></canvas>
-              </div>
-              <div class="panel-footer text-center">by <a href=#>{{thing.authorName}}</a></div>
-            </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Popular Polls:</h4>
+        </div>
+        <div class="panel-body">
+          <ul class="list-group text-center shw" ng-repeat="thing in awesomeThings">
+            <a href="/poll/{{thing._id}}"><li class="list-group-item showcase"><h3>{{thing.question}}<h3></li></a>
+          </ul>
+        </div>
+        <div class="panel-footer text-center">
+          <div class="btn-group" role="group">
+            <div class="btn btn-default" ng-class="{ disabled: page === 1 }" ng-click="pageDown()">Prev</div>
+            <div class="btn btn-default" ng-class="{ disabled: page === info.pageCount }" ng-click="pageUp()">Next</div>
           </div>
-        </li>
-      </ul>
-      <p>Temporary InfoBox - PageCount: {{info.pageCount}}, ItemCount: {{info.itemCount}}</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

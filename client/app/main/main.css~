@@ -28,7 +28,7 @@
 }
 
 .lead {
-  color: #d2d7d3;
+  color: #abb7b7;
 }
 .footer {
     text-align: center;
@@ -39,4 +39,29 @@
 
 .navbar-text {
     margin-left: 15px;
+}
+
+.center {
+     float: none;
+     margin-left: auto;
+     margin-right: auto;
+}
+
+.shw a:hover, .shw a:active {
+  text-decoration:none;
+}
+
+.showcase {
+  color: #f2f1ef;
+  background-color: #4b77be;
+  transition: background-color 0.3s;   
+}
+
+
+.showcase:hover{
+  background-color:#67809f;
+}
+
+.top {
+  margin-top: 50px;
 }

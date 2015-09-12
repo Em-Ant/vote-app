@@ -3,12 +3,31 @@
 angular.module('fullstackApp')
   .controller('MainCtrl', function ($scope, $http) {
     $scope.awesomeThings = [];
-
-    $http.get('/api/polls/popular', {params:{limit: 2, page: 2}}).success(function(awesomeThings) {
+    $scope.page = 1;
+    
+    $http.get('/api/polls/popular', {params:{ page: $scope.page }}).success(function(awesomeThings) {
       $scope.awesomeThings = awesomeThings.polls;
       $scope.info = awesomeThings.paginateInfo;
     });
+    
+    $scope.pageUp = function() {
+      $scope.page++;
+      
+      $http.get('/api/polls/popular', {params:{ page: $scope.page }}).success(function(awesomeThings) {
+        $scope.awesomeThings = awesomeThings.polls;
+        $scope.info = awesomeThings.paginateInfo;
+      });
+    }
 
+    $scope.pageDown = function() {
+      $scope.page--;
+      
+      $http.get('/api/polls/popular', {params:{ page: $scope.page }}).success(function(awesomeThings) {
+        $scope.awesomeThings = awesomeThings.polls;
+        $scope.info = awesomeThings.paginateInfo;
+      });
+    }
+      
     $scope.addThing = function() {
       if($scope.newThing === '') {
         return;
