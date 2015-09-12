@@ -41,11 +41,6 @@
     margin-left: 15px;
 }
 
-.center {
-     float: none;
-     margin-left: auto;
-     margin-right: auto;
-}
 
 .shw a:hover, .shw a:active {
   text-decoration:none;
@@ -53,15 +48,18 @@
 
 .showcase {
   color: #f2f1ef;
-  background-color: #4b77be;
+  background-color: #3a5568;
   transition: background-color 0.3s;   
 }
 
 
 .showcase:hover{
-  background-color:#67809f;
+  background-color: #4b77be;
 }
 
 .top {
-  margin-top: 50px;
+  margin-top: 90px;
 }
+
+
+

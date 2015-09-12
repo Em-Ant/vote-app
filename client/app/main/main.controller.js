@@ -4,28 +4,29 @@ angular.module('fullstackApp')
   .controller('MainCtrl', function ($scope, $http) {
     $scope.awesomeThings = [];
     $scope.page = 1;
+    $scope.sortCriterion = 'recent'
+    $scope.inactiveSortCrit = 'popular'
     
-    $http.get('/api/polls/popular', {params:{ page: $scope.page }}).success(function(awesomeThings) {
-      $scope.awesomeThings = awesomeThings.polls;
-      $scope.info = awesomeThings.paginateInfo;
-    });
+    var toogleSortCriterion = function() {
+      $scope.sortCriterion = $scope.sortCriterion === 'recent' ? 'popular' : 'recent';
+      $scope.inactiveSortCrit = $scope.inactiveSortCrit === 'recent' ? 'popular' : 'recent';
+    }
     
-    $scope.pageUp = function() {
-      $scope.page++;
+    $scope.pager = function(dir) {
       
-      $http.get('/api/polls/popular', {params:{ page: $scope.page }}).success(function(awesomeThings) {
+      if(dir === 'up') $scope.page++;
+      else if (dir === 'down') $scope.page--;
+      
+      $http.get('/api/polls/' + $scope.sortCriterion, {params:{ page: $scope.page }}).success(function(awesomeThings) {
         $scope.awesomeThings = awesomeThings.polls;
         $scope.info = awesomeThings.paginateInfo;
       });
     }
-
-    $scope.pageDown = function() {
-      $scope.page--;
-      
-      $http.get('/api/polls/popular', {params:{ page: $scope.page }}).success(function(awesomeThings) {
-        $scope.awesomeThings = awesomeThings.polls;
-        $scope.info = awesomeThings.paginateInfo;
-      });
+    
+    $scope.switchCrit = function() {
+      toogleSortCriterion();
+      $scope.page = 1;
+      $scope.pager();
     }
       
     $scope.addThing = function() {
@@ -39,4 +40,15 @@ angular.module('fullstackApp')
     $scope.deleteThing = function(thing) {
       $http.delete('/api/things/' + thing._id);
     };
+    
+    $scope.pager();
+  })
+  .filter('capitalize',function() {
+    return function(text) {
+      var arr = text.split(' ');
+      arr = arr.map(function(el) {
+        return el.charAt(0).toUpperCase() + el.substr(1);
+      });
+      return arr.join(' ');
+    }
   });

@@ -10,10 +10,11 @@
 
 <div class="container">
   <div class="row top">
-    <div class="col-lg-12">
+    <div class="col-md-8 col-md-offset-2">
       <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4>Popular Polls:</h4>
+        <div class="panel-heading nav">
+          <h3 class="navbar-text">{{ sortCriterion | capitalize}} Polls:</h3>
+          <div class="btn btn-default navbar-btn navbar-right darkblue" ng-click="switchCrit()">{{ inactiveSortCrit | capitalize}} First</div>
         </div>
         <div class="panel-body">
           <ul class="list-group text-center shw" ng-repeat="thing in awesomeThings">
@@ -21,10 +22,11 @@
           </ul>
         </div>
         <div class="panel-footer text-center">
-          <div class="btn-group" role="group">
-            <div class="btn btn-default" ng-class="{ disabled: page === 1 }" ng-click="pageDown()">Prev</div>
-            <div class="btn btn-default" ng-class="{ disabled: page === info.pageCount }" ng-click="pageUp()">Next</div>
-          </div>
+          <ul class="list-inline">
+            <li class="btn btn-default" ng-class="{ disabled: page === 1 }" ng-click="pager('down')">Prev</li>
+            <li class="grey">page {{page}}/{{info.pageCount}}</li>
+            <li class="btn btn-default" ng-class="{ disabled: page === info.pageCount }" ng-click="pager('up')">Next</li>
+          </ul>
         </div>
       </div>
     </div>

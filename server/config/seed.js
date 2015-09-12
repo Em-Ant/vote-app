@@ -64,6 +64,34 @@ John.save(function(err){
       popularity: 26,
       authorName: John.name,
       authorId: John._id,    
+    }, {
+      question: 'Are you a good Chess Player ?',
+      options: ['Yes', 'No'],
+      votes:[5,8],
+      popularity: 13,
+      authorName: John.name,
+      authorId: John._id,
+    }, {
+      question: 'Which is your favorite Jersey Shore Charachter ?',
+      options: ['Snooki', 'Mike The Situation', 'Vinny'],
+      votes:[8,11,20],
+      popularity: 39,
+      authorName: John.name,
+      authorId: John._id,    
+    }, {
+      question: 'Which is your favorite Programming Language ?',
+      options: ['JavaScript', 'C++', 'php'],
+      votes: [2,3,1],
+      popularity: 6,
+      authorName: John.name,
+      authorId: John._id,    
+    }, {
+      question: 'Do you think I can do this ?',
+      options: ['Sure', 'No Way', 'Keep Calm and...'],
+      votes: [12,8,6],
+      popularity: 26,
+      authorName: John.name,
+      authorId: John._id,    
     });
   })
 });
