@@ -30,6 +30,7 @@
 .lead {
   color: #abb7b7;
 }
+
 .footer {
     text-align: center;
     padding: 30px 0;
@@ -42,14 +43,17 @@
 }
 
 
-.shw a:hover, .shw a:active {
+.bg-color-trans {
+  transition: background-color 0.3s;   
+}
+
+.no-decoration:hover, .no-decoration:active {
   text-decoration:none;
 }
 
 .showcase {
   color: #f2f1ef;
   background-color: #3a5568;
-  transition: background-color 0.3s;   
 }
 
 
@@ -61,5 +65,7 @@
   margin-top: 90px;
 }
 
-
-
+a.disabled {
+   cursor:not-allowed;
+   pointer-events: none;
+}

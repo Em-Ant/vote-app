@@ -1,33 +1,62 @@
 'use strict';
 
 angular.module('fullstackApp')
-  .controller('MainCtrl', function ($scope, $http) {
-    $scope.awesomeThings = [];
-    $scope.page = 1;
-    $scope.sortCriterion = 'recent'
-    $scope.inactiveSortCrit = 'popular'
+  
+  /**
+  * This controller is under heavy development
+  */
+  
+  .controller('MainCtrl', function ($scope, $http, /*for testing loading status*/ $timeout) {
+   
+    $scope.activeTitle = $scope.sortToggleButtonLabel = 'Loading...';
+    $scope.loading = true;
+    $scope.pollsData = {
+      results: [],
+      current: '-',
+      last: '-',
+    }
+    
+    var sortCrit = 'recent';
     
     var toogleSortCriterion = function() {
-      $scope.sortCriterion = $scope.sortCriterion === 'recent' ? 'popular' : 'recent';
-      $scope.inactiveSortCrit = $scope.inactiveSortCrit === 'recent' ? 'popular' : 'recent';
+      sortCrit = sortCrit === 'recent' ? 'popular' : 'recent';
     }
     
-    $scope.pager = function(dir) {
+    $scope.pager = function(dir,page) {
       
-      if(dir === 'up') $scope.page++;
-      else if (dir === 'down') $scope.page--;
+      var queryPage = page || $scope.pollsData.current;
+      $scope.loading = true;
+      $scope.activeTitle = $scope.sortToggleButtonLabel = 'Loading...';
+      if(dir === 'up') queryPage++
+      else if (dir === 'down') queryPage--;
       
-      $http.get('/api/polls/' + $scope.sortCriterion, {params:{ page: $scope.page }}).success(function(awesomeThings) {
-        $scope.awesomeThings = awesomeThings.polls;
-        $scope.info = awesomeThings.paginateInfo;
-      });
-    }
+      // Simulate a long loading...
+      $timeout(function() {
+        $http.get('/api/polls/', { params:{ page: queryPage, order: sortCrit }}).success(function(res) {
+          $scope.pollsData = res;
+          $scope.loading = false;
+          $scope.activeTitle = sortCrit === 'recent' ? 'Recent Polls' : 'Popular Polls';
+          $scope.sortToggleButtonLabel = sortCrit === 'recent' ? 'Popular First' : 'Recent First';
+        });
+      },1000);
+    };
+    
+    // add a readable permalink to the route page
+    $scope.permalinker = function(text) {
+      return text.toLowerCase().replace(/[\.\s]*\?\s*/g,'').replace(/\./g,' ').replace(/\s+/g,'-');
+    };
     
     $scope.switchCrit = function() {
       toogleSortCriterion();
-      $scope.page = 1;
-      $scope.pager();
-    }
+      $scope.pager(null,1);
+    };
+    
+    // Load the first polls 
+    $scope.pager(null,1);
+      
+    /**
+    * TO BE IMPLEMENTED
+    *
       
     $scope.addThing = function() {
       if($scope.newThing === '') {
@@ -41,14 +70,7 @@ angular.module('fullstackApp')
       $http.delete('/api/things/' + thing._id);
     };
     
-    $scope.pager();
-  })
-  .filter('capitalize',function() {
-    return function(text) {
-      var arr = text.split(' ');
-      arr = arr.map(function(el) {
-        return el.charAt(0).toUpperCase() + el.substr(1);
-      });
-      return arr.join(' ');
-    }
+    *
+    */
+       
   });

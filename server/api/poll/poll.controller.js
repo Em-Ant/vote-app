@@ -2,7 +2,10 @@
 
 var _ = require('lodash');
 var Poll = require('./poll.model');
+require('mongoose-query-paginate');
 
+
+/*
 // Get list of polls
 exports.index = function(req, res) {
   Poll.find(function (err, polls) {
@@ -10,6 +13,24 @@ exports.index = function(req, res) {
     return res.status(200).json(polls);
   });
 };
+*/
+
+// Get list of polls - paginted and sorted
+exports.index = function(req,res) {
+  var sortOrder = '-createdOn';
+  if(req.query.order === 'popular' ) sortOrder = '-popularity' 
+  var query = Poll.find({},'-votedBy').sort(sortOrder);
+  var options = {
+    perPage: req.query.limit || 4,
+    delta: 0,
+    page: req.query.page || 1
+  } 
+  
+  query.paginate(options, function (err, results) {
+    if(err) { return handleError(res, err) };     
+    return res.status(200).json(results);
+  });
+}
 
 // Get a single poll
 exports.show = function(req, res) {
@@ -58,52 +79,4 @@ function handleError(res, err) {
   return res.status(500).send(err);
 }
 
-// ----------------------------------------------------------------------------
 
-/**
-* Custom Actions - using mongoose-paginate
-*/
-
-exports.recent = function(req,res) {
-  Poll.paginate({},{
-    page: req.query.page || 1,
-    limit: req.query.limit || 4,
-    sortBy: {
-      createdOn: -1
-    }
-  }, function (err, results, pageCount, itemCount) {
-    if(err) { return handleError(res, err); }
-    
-    var data = {
-      paginateInfo : {
-        pageCount: pageCount,
-        itemCount: itemCount
-      },
-      polls : results
-    };
-    
-    return res.status(200).json(data);
-  });
-}
-
-exports.popular = function(req,res) {
-  Poll.paginate({},{
-    page: req.query.page || 1,
-    limit: req.query.limit || 4,
-    sortBy: {
-      popularity: -1
-    }
-  }, function (err, results, pageCount, itemCount) {
-    if(err) { return handleError(res, err); }
-    
-    var data = {
-      paginateInfo : {
-        pageCount: pageCount,
-        itemCount: itemCount
-      },
-      polls : results
-    };
-    
-    return res.status(200).json(data);
-  });
-}

@@ -15,9 +15,10 @@ var PollSchema = new Schema({
   createdOn: {
     type: Date,
     default: Date.now
-  }
+  },
+  votedBy: [Schema.Types.ObjectId]
 });
 
-PollSchema.plugin('paginate');
+PollSchema.plugin(paginate);
 
 module.exports = mongoose.model('Poll', PollSchema);

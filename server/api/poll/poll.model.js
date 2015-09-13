@@ -1,7 +1,6 @@
 'use strict';
 
 var mongoose = require('mongoose');
-var paginate = require('mongoose-paginate');
 
 var Schema = mongoose.Schema;
 
@@ -15,9 +14,9 @@ var PollSchema = new Schema({
   createdOn: {
     type: Date,
     default: Date.now
-  }
+  },
+  votedBy: [Schema.Types.ObjectId]
 });
 
-PollSchema.plugin(paginate);
 
 module.exports = mongoose.model('Poll', PollSchema);

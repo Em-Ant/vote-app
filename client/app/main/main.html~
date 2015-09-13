@@ -13,19 +13,19 @@
     <div class="col-md-8 col-md-offset-2">
       <div class="panel panel-default">
         <div class="panel-heading nav">
-          <h3 class="navbar-text">{{ sortCriterion | capitalize}} Polls:</h3>
-          <div class="btn btn-default navbar-btn navbar-right" ng-click="switchCrit()">{{ inactiveSortCrit | capitalize}} First</div>
+          <h3 class="navbar-text">{{activeTitle}}</h3>
+          <div class="btn btn-primary navbar-btn navbar-right bg-color-trans" ng-class="{ disabled: loading }" ng-click="switchCrit()">{{sortToggleButtonLabel}}</div>
         </div>
         <div class="panel-body">
-          <ul class="list-group text-center shw" ng-repeat="thing in awesomeThings">
-            <a href="/poll/{{thing._id}}"><li class="list-group-item showcase"><h3>{{thing.question}}<h3></li></a>
-          </ul>
+          <a ng-repeat="thing in pollsData.results" href="/poll/{{thing._id}}/{{permalinker(thing.question)}}" class="no-decoration" >
+            <div class="well text-center showcase bg-color-trans" ng-class="{disabled: loading}"><h3>{{thing.question}}</h3></div> 
+          </a>
         </div>
         <div class="panel-footer text-center">
           <ul class="list-inline">
-            <li class="btn btn-default" ng-class="{ disabled: page === 1 }" ng-click="pager('down')">Prev</li>
-            <li class="grey">page {{page}}/{{info.pageCount}}</li>
-            <li class="btn btn-default" ng-class="{ disabled: page === info.pageCount }" ng-click="pager('up')">Next</li>
+            <li class="btn btn-default" ng-class="{ disabled: !pollsData.prev || loading }" ng-click="pager('down')">Prev</li>
+            <li class="grey">page {{pollsData.current}}/{{pollsData.last}}</li>
+            <li class="btn btn-default" ng-class="{ disabled: !pollsData.next || loading }" ng-click="pager('up')">Next</li>
           </ul>
         </div>
       </div>
