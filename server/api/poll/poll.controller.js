@@ -34,9 +34,16 @@ exports.index = function(req,res) {
 
 // Get a single poll
 exports.show = function(req, res) {
-  Poll.findById(req.params.id, function (err, poll) {
+
+  Poll.findById(req.params.id).lean().exec(function (err, poll) {
     if(err) { return handleError(res, err); }
     if(!poll) { return res.status(404).send('Not Found'); }
+    
+    if(req.user) {
+      poll.isVotedByCurrentUser = true // (poll.votedBy.indexOf(req.user._id) !== -1)
+    }
+    
+    delete poll.votedBy;
     return res.json(poll);
   });
 };

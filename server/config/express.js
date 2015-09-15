@@ -29,7 +29,7 @@ module.exports = function(app) {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.use(methodOverride());
-  app.use(cookieParser());
+  app.use(cookieParser(config.secrets.session));
   app.use(passport.initialize());
 
   // Persist sessions with mongoStore
