@@ -4,7 +4,10 @@ angular.module('fullstackApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth) {
     $scope.menu = [{
       'title': 'Home',
-      'link' : '/'
+      'link': /^\/$/
+    }, {
+      'title': 'Poll',
+      'link':  /^\/poll\//    
     }];
 
     $scope.isCollapsed = true;
@@ -17,11 +20,7 @@ angular.module('fullstackApp')
       $location.path('/login');
     };
 
-    $scope.isPollPage = function() {
-      return /^\/poll\//.test($location.path());
-    };
-
     $scope.isActive = function(route) {
-      return ($location.path() === route);
+      return $location.path().match(route);
     };
   });
