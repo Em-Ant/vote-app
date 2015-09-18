@@ -6,7 +6,8 @@ angular.module('fullstackApp', [
   'ngSanitize',
   'ngRoute',
   'ui.bootstrap',
-  'chart.js'
+  'chart.js',
+  '720kb.socialshare'
 ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider

@@ -1,3 +1,6 @@
+
+
+
 'use strict';
 
 angular.module('fullstackApp')
@@ -6,8 +9,8 @@ angular.module('fullstackApp')
       function ($scope, $routeParams, $http, Auth, $location) {
 
     $scope.nextView = "Results"
-    $scope.voteMessage = Auth.isLoggedIn() ? "Click on the Question to Vote"
-      : "You must be Logged In to Vote";
+    $scope.pageLink = $location.absUrl();
+    $scope.logged = Auth.isLoggedIn();
 
     $http.get('/api/polls/' + $routeParams.id).success(function(res){
 
@@ -19,13 +22,13 @@ angular.module('fullstackApp')
     $scope.toggleView = function() {
 
       $scope.poll.showResult = !$scope.poll.showResult;
-      if($scope.poll.showResult) $scope.nextView = "Questions";
+      if($scope.poll.showResult) $scope.nextView = "Answers";
       else  $scope.nextView = "Results";
     };
 
     $scope.voteFor = function(q) {
 
-      if(Auth.isLoggedIn()) {
+      if($scope.logged) {
         $http.put('/api/polls/' + $routeParams.id + '/' + q)
           .success(function(res) {
             if (!res.alreadyVoted) {
@@ -33,6 +36,7 @@ angular.module('fullstackApp')
             // Vote is accepted
             $scope.poll = res;
             $scope.poll.showResult = true;
+            $scope.nextView = "Answers"
           } else {
 
             // This user has already voted. Vote is invalid
@@ -40,7 +44,8 @@ angular.module('fullstackApp')
             * TODO: improve already voted feedback message,
             *  disable vote buttons for the current poll
             */
-            alert('You have already voted this poll!');
+            $scope.voted = true;
+
           }
         });
       } else {

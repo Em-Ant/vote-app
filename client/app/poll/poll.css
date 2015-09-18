@@ -1,3 +1,28 @@
+
 .pointer {
   cursor: pointer;
+}
+
+i.fa {
+  font-size: 30px;
+}
+
+textarea#link {
+  position: relative;
+  width: 100%;
+  resize: none;
+  cursor: copy;
+  background-color: #f9f9f9;
+}
+
+#fb {
+  color: #3B5998;
+}
+
+#tw {
+  color: #54ABEE;
+}
+
+#gp {
+  color: #d34836;
 }

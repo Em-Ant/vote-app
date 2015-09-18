@@ -19,4 +19,5 @@ if [ $? -eq 0 ];
 
   # Load NodeJS and Start Express Server
   nvm use 0 && grunt serve;
+
 fi
