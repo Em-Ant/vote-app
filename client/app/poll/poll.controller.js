@@ -23,12 +23,29 @@ angular.module('fullstackApp')
       else  $scope.nextView = "Results";
     };
 
-    $scope.voteFor = function(id) {
+    $scope.voteFor = function(q) {
 
-      console.log(id);
       if(Auth.isLoggedIn()) {
+        $http.put('/api/polls/' + $routeParams.id + '/' + q)
+          .success(function(res) {
+            if (!res.alreadyVoted) {
 
+            // Vote is accepted
+            $scope.poll = res;
+            $scope.poll.showResult = true;
+          } else {
+
+            // This user has already voted. Vote is invalid
+            /**
+            * TODO: improve already voted feedback message,
+            *  disable vote buttons for the current poll
+            */
+            alert('You have already voted this poll!');
+          }
+        });
       } else {
+
+        // User must be authenticated. Redirect to login page
         $location.path('/login');
       }
     };
