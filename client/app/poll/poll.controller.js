@@ -5,12 +5,16 @@
 
 angular.module('fullstackApp')
   .controller('PollCtrl',
-    ['$scope', '$routeParams', '$http', 'Auth', '$location',
-      function ($scope, $routeParams, $http, Auth, $location) {
+    ['$scope',  '$routeParams', '$http', 'Auth', '$location', '$rootScope',
+      function ($scope, $routeParams, $http, Auth, $location, $rootScope) {
 
     $scope.nextView = "Results"
     $scope.pageLink = $location.absUrl();
-    $scope.logged = Auth.isLoggedIn();
+    Auth.isLoggedInAsync(function(res){
+      $scope.logged = res;
+    });
+
+    $rootScope.oldPath = undefined;
 
     $http.get('/api/polls/' + $routeParams.id).success(function(res){
 
@@ -40,10 +44,6 @@ angular.module('fullstackApp')
           } else {
 
             // This user has already voted. Vote is invalid
-            /**
-            * TODO: improve already voted feedback message,
-            *  disable vote buttons for the current poll
-            */
             $scope.voted = true;
 
           }
@@ -51,6 +51,7 @@ angular.module('fullstackApp')
       } else {
 
         // User must be authenticated. Redirect to login page
+        $rootScope.oldPath = $location.path();
         $location.path('/login');
       }
     };

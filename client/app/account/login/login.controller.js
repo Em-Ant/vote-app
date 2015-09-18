@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('fullstackApp')
-  .controller('LoginCtrl', function ($scope, Auth, $location, $window) {
+  .controller('LoginCtrl', ['$scope', 'Auth', '$location',
+    '$window', '$rootScope',
+      function ($scope, Auth, $location, $window, $rootScope) {
     $scope.user = {};
     $scope.errors = {};
 
@@ -15,7 +17,7 @@ angular.module('fullstackApp')
         })
         .then( function() {
           // Logged in, redirect to home
-          $location.path('/');
+          $location.path( $rootScope.oldPath || '/');
         })
         .catch( function(err) {
           $scope.errors.other = err.message;
@@ -26,4 +28,4 @@ angular.module('fullstackApp')
     $scope.loginOauth = function(provider) {
       $window.location.href = '/auth/' + provider;
     };
-  });
+  }]);
