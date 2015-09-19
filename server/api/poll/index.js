@@ -9,7 +9,7 @@ var router = express.Router();
 // Recent Custom Route
 
 router.get('/', controller.index);
-router.get('/:id', controller.show);
+router.get('/:id/:user', controller.show);
 router.post('/', controller.create);
 router.put('/:id/:q', auth.isAuthenticated(), controller.vote);
 router.put('/:id', controller.update);

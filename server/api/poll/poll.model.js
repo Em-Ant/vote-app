@@ -16,6 +16,8 @@ var PollSchema = new Schema({
     default: Date.now
   },
   votedBy: [Schema.Types.ObjectId]
+}, {
+    versionKey: false 
 });
 
 

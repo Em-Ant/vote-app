@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var Poll = require('./poll.model');
+var mongoose = require('mongoose');
 require('mongoose-query-paginate');
 
 
@@ -25,17 +26,24 @@ exports.index = function(req,res) {
 
 // Get a single poll
 exports.show = function(req, res) {
-
-  Poll.findById(req.params.id).lean().exec(function (err, poll) {
+  Poll.findById(req.params.id).exec(function (err, poll) {
     if(err) { return handleError(res, err); }
-    if(!poll) { return res.status(404).send('Not Found'); }
+    if(!poll) { return res.status(404).send('Not Found'); ; }
+    var pollObj = poll.toObject();
 
-    if(req.user) {
-      poll.isVotedByCurrentUser = true // (poll.votedBy.indexOf(req.user._id) !== -1)
+    if(req.params.user != 0) {
+      var id = req.params.user;
+      var isVoted = poll.votedBy.some(function(uid){
+        return uid.equals(id);
+      });
+
+      if (isVoted) {
+        pollObj.isVotedByCurrentUser = true;
+      }
     }
 
-    delete poll.votedBy;
-    return res.json(poll);
+    delete pollObj.votedBy;
+    return res.status(200).json(pollObj);
   });
 };
 
@@ -45,25 +53,20 @@ exports.vote = function(req, res) {
     if (err) { return handleError(res, err); }
     if (!poll) { return res.status(404).send('Not Found'); }
 
-    // Check if current user has voted this poll before
-    if (poll.votedBy.indexOf(req.user._id) === -1) {
-
-      // Not already voted. Save new vote
+    if(poll.votedBy.indexOf(req.user._id) === -1) {
       poll.popularity++;
       var _votes = poll.votes.slice();
       _votes[req.params.q]++;
       poll.votes = _votes;
       poll.votedBy.push(req.user._id);
-      poll.save(function (err) {
+      poll.save(function(err) {
         if (err) { return handleError(res, err); }
-        return res.status(200).json(poll);
+        var pollObj = poll.toObject();
+        delete pollObj.votedBy;
+        return res.status(200).json(pollObj);
       });
     } else {
-      var errObj = {
-        alreadyVoted: true,
-        data: poll
-      };
-      return res.status(200).json(errObj);    
+      return res.status(304);
     }
   });
 }
