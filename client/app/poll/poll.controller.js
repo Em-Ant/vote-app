@@ -1,12 +1,12 @@
 
-
-
 'use strict';
 
 angular.module('fullstackApp')
   .controller('PollCtrl',
     ['$scope',  '$routeParams', '$http', 'Auth', '$location', '$rootScope',
       function ($scope, $routeParams, $http, Auth, $location, $rootScope) {
+
+    //TODO: Create a LOADING status...
 
     $scope.nextView = "Results"
     $scope.pageLink = $location.absUrl();
@@ -23,14 +23,12 @@ angular.module('fullstackApp')
         $scope.poll = res;
         if (res.isVotedByCurrentUser) {
           $scope.poll.showResult = true;
-          $scope.nextView = "Answers"
+          $scope.nextView = "Options"
         }
        });
     });
 
     $rootScope.oldPath = undefined;
-
-
 
     $scope.toggleView = function() {
 
@@ -50,7 +48,7 @@ angular.module('fullstackApp')
             $scope.poll = res;
             $scope.poll.showResult = true;
             $scope.poll.isVotedByCurrentUser = true;
-            $scope.nextView = "Answers"
+            $scope.nextView = 'Options';
           } else {
 
             // This user has already voted. Vote is invalid

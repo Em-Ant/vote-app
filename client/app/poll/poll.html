@@ -16,7 +16,7 @@
           <div ng-hide="poll.showResult">
             <div class="alert text-center alert-warning" role="alert" ng-show="!logged">You must Log In to Vote</div>
             <div class="alert text-center alert-danger" role="alert" ng-show="poll.isVotedByCurrentUser">You have already voted this Poll</div>
-            <div ng-repeat="option in poll.options" class="well text-center showcase bg-color-trans pointer" ng-class="{disabled: loading}" ng-click="voteFor($index)">
+            <div ng-repeat="option in poll.options" class="well text-center showcase bg-color-trans pointer" ng-class="{disabled: loading || poll.isVotedByCurrentUser}" ng-click="voteFor($index)">
               <h3>{{option}}</h3>
             </div>
           </div>

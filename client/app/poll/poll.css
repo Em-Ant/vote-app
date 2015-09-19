@@ -26,3 +26,10 @@ textarea#link {
 #gp {
   color: #d34836;
 }
+
+div.showcase.disabled {
+  pointer-events: none;
+  cursor: default;
+  color: #afb8bf;
+  background-color: #56626c;
+}
