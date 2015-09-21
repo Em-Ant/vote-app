@@ -15,6 +15,7 @@
             <a ng-href="{{item.link}}">{{item.title}}</a>
         </li>
         <li ng-show="isPollPage()" class="active"><a href="#">Poll</a></li>
+        <li ng-show="isLoggedIn()" ng-class="{active: isActive('/mypolls')}"><a href="/mypolls">My Polls</a></li>
         <li ng-show="isAdmin()" ng-class="{active: isActive('/admin')}"><a href="/admin">Admin</a></li>
       </ul>
 
