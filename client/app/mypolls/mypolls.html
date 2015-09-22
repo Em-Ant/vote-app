@@ -1,0 +1,98 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+
+<div class="container">
+  <div class="row top">
+
+    <!-- My Polls Panel -->
+    <div class="col-md-8 col-md-offset-2">
+      <div class="panel panel-default" ng-hide="editStatus.editMode">
+        <div class="panel-heading nav">
+          <h3 class="navbar-text">My {{activeTitle}}</span></h3>
+          <div class="btn-group navbar-btn navbar-right">
+            <div  class="btn btn-default  bg-color-trans" ng-click="editPoll()"><span class="glyphicon glyphicon-plus"></span></div>
+            <div class="btn btn-default  bg-color-trans" ng-class="{ disabled: loading }" ng-click="switchCrit()">{{sortToggleButtonLabel}}</div>
+          </div>
+        </div>
+
+          <ul class="list-group">
+            <li class="list-group-item" ng-show="pollsData.results.length === 0"><div class="nav text-left"><h4  class="navbar-text">You have No Polls</h4></div></li>
+            <li class="list-group-item" ng-repeat="thing in pollsData.results">
+              <div class="nav text-left">
+                <a href="/poll/{{thing._id}}/{{permalinker(thing.question)}}" ng-class="{disabled: loading}">
+                  <h4  class="navbar-text">{{thing.question}}</h4>
+                </a>
+                <div class="btn-group navbar-btn navbar-right">
+                  <div  class="btn btn-default  bg-color-trans" ng-click="editPoll($index)"><span class="glyphicon glyphicon-cog"></span></div>
+                  <div  class="btn btn-default  bg-color-trans" ng-click="deletePoll($index)"><span class="glyphicon glyphicon-trash"></div>
+                </div>
+              </div>
+            </li>
+          </ul>
+
+        <div class="panel-footer text-center">
+          <ul class="list-inline">
+            <li class="btn btn-default" ng-class="{ disabled: !pollsData.prev || loading }" ng-click="pager('down')">Prev</li>
+            <li class="grey">page {{pollsData.current}}/{{pollsData.last}}</li>
+            <li class="btn btn-default" ng-class="{ disabled: !pollsData.next || loading }" ng-click="pager('up')">Next</li>
+          </ul>
+        </div>
+      </div> <!-- END My Polls Panel -->
+
+    <div class="alert text-center alert-danger" role="alert" ng-show="editStatus.showAlert">Your Poll must have a Question and at least two Options</div>
+
+    <!-- My Polls EDIT Panel -->
+      <div class="panel panel-default" ng-show="editStatus.editMode">
+        <div class="panel-heading nav" >
+          <div>
+            <h3 class="navbar-text">{{currentEditPoll.question}}</h3>
+            <div  class="btn navbar-btn navbar-right btn-default bg-color-trans"
+              ng-show="editStatus.newPoll" ng-class="{disabled: !editStatus.newPollQuestionSaved}"
+                ng-click="clearNewQuestion()">
+              <span class="glyphicon glyphicon-trash"></span>
+            </div>
+          </div>
+
+
+            <div class="input-group navbar-left" ng-show="editStatus.newPoll && editStatus.showNewQuestionInput">
+              <input type="text" class="form-control" ng-model="newQuestion" placeholder="Create a New Poll...">
+              <span class="input-group-btn" ng-click="saveNewQuestion()">
+                <div class="btn btn-default" type="button"><span class="glyphicon glyphicon-plus"></span></div>
+              </span>
+            </div><!-- /input-group -->
+
+
+        </div>
+        <ul class="list-group">
+          <li class="list-group-item nav" ng-repeat="op in currentEditPoll.options">
+            <h4 class="navbar-text" >{{op}}</h4>
+            <div  class="btn btn-default navbar-btn navbar-right  btn-default bg-color-trans" ng-show="currentEditPoll.votes[$index] == 0" ng-click="removeOpt($index)">
+              <span class="glyphicon glyphicon-trash"></span>
+            </div>
+          </li>
+        </ul>
+        <div class="panel-body">
+          <br>
+          <div class="input-group">
+            <input type="text" class="form-control" ng-model="newOption" placeholder="Add a New Option...">
+            <span class="input-group-btn">
+              <div class="btn btn-default bg-color-trans" type="button" ng-click="pushNewOpt()"><span class="glyphicon glyphicon-plus"></span></div>
+            </span>
+          </div><!-- /input-group -->
+        </div>
+        <div class="panel-footer nav">
+          <div class="btn-group navbar-btn navbar-right">
+            <div  class="btn btn-default bg-color-trans" ng-click="quitEdit()"><span class="glyphicon glyphicon-remove"></span></div>
+            <div  class="btn btn-default bg-color-trans" ng-click="submitEdited()"><span class="glyphicon glyphicon-save"></span></div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- END Poll EDIT Panel -->
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+      <p>Voteplex by <a href="http://emant.altervista.org">emant</a> | <a href="https://twitter.com/js999x">@js999x</a></p>
+  </div>
+</footer>

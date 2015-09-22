@@ -10,14 +10,17 @@ var PollSchema = new Schema({
   votes: [Number],
   authorId: Schema.Types.ObjectId,
   authorName: String,
-  popularity: Number,
+  popularity: {
+    type: Number,
+    default: 0
+  },
   createdOn: {
     type: Date,
     default: Date.now
   },
   votedBy: [Schema.Types.ObjectId]
 }, {
-    versionKey: false 
+    versionKey: false
 });
 
 
