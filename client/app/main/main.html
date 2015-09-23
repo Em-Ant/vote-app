@@ -13,18 +13,18 @@
     <div class="col-md-8 col-md-offset-2">
       <div class="panel panel-default">
         <div class="panel-heading nav">
-          <h3 class="navbar-text">{{activeTitle}}</h3>
-          <div class="btn btn-primary navbar-btn navbar-right bg-color-trans" ng-class="{ disabled: loading }" ng-click="switchCrit()">{{sortToggleButtonLabel}}</div>
+          <h4 class="navbar-text"><strong>{{activeTitle}}</strong></h4>
+          <div class="btn btn-default navbar-btn navbar-right bg-color-trans" ng-class="{ disabled: loading }" ng-click="switchCrit()">{{sortToggleButtonLabel}}</div>
         </div>
         <div class="panel-body">
           <a ng-repeat="thing in pollsData.results" href="/poll/{{thing._id}}/{{permalinker(thing.question)}}" class="no-decoration" ng-class="{disabled: loading}">
-            <div class="well text-center showcase bg-color-trans"><h3>{{thing.question}}</h3></div> 
+            <div class="well text-center showcase bg-color-trans"><h3>{{thing.question}}</h3></div>
           </a>
         </div>
         <div class="panel-footer text-center">
           <ul class="list-inline">
             <li class="btn btn-default" ng-class="{ disabled: !pollsData.prev || loading }" ng-click="pager('down')">Prev</li>
-            <li class="grey">page {{pollsData.current}}/{{pollsData.last}}</li>
+            <li class="text-muuted">page {{pollsData.last ? pollsData.current : '-'}}/{{pollsData.last || '-'}}</li>
             <li class="btn btn-default" ng-class="{ disabled: !pollsData.next || loading }" ng-click="pager('up')">Next</li>
           </ul>
         </div>
@@ -35,7 +35,7 @@
 
 <footer class="footer">
   <div class="container">
-      <p>Voteplex by <a href="http://emant.altervista.org">emant</a> | <a href="https://twitter.com/js999x">@js999x</a></p> 
-         
+      <p>Voteplex by <a href="http://emant.altervista.org">emant</a> | <a href="https://twitter.com/js999x">@js999x</a></p>
+
   </div>
 </footer>

@@ -8,8 +8,8 @@
     <div class="col-md-8">
       <div class="panel panel-default">
         <div class="panel-heading nav">
-          <h3 class="navbar-text">{{poll.question}}</h3>
-          <div class="btn btn-primary navbar-btn navbar-right bg-color-trans" ng-class="{ disabled: loading }" ng-click="toggleView()">Show {{nextView}}</div>
+          <h4 class="navbar-text"><strong>{{poll.question}}</strong></h4>
+          <div class="btn btn-default navbar-btn navbar-right bg-color-trans" ng-class="{ disabled: loading }" ng-click="toggleView()">Show {{nextView}}</div>
         </div>
         <div class="panel-body">
 
@@ -36,7 +36,7 @@
     <div class="col-md-4 side">
       <div class="panel panel-default">
         <div class="panel-heading text-center">
-          <h4>Share</h4>
+          <h4><strong>Share</strong></h4>
         </div>
         <div class="panel-body text-center">
           <textarea id="link" class="form-control" rows="3" readonly="readonly">{{pageLink}}</textarea>

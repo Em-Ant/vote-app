@@ -33,7 +33,7 @@ angular.module('fullstackApp')
     $scope.toggleView = function() {
 
       $scope.poll.showResult = !$scope.poll.showResult;
-      if($scope.poll.showResult) $scope.nextView = "Answers";
+      if($scope.poll.showResult) $scope.nextView = "Options";
       else  $scope.nextView = "Results";
     };
 

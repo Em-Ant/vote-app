@@ -3,6 +3,9 @@
 angular.module('fullstackApp')
   .controller('MypollsCtrl', ['$scope', '$http', '$timeout',
     function ($scope, $http, $timeout) {
+
+    // This part is very similar to main controller.
+    // Could be refactored in a service
     $scope.activeTitle = $scope.sortToggleButtonLabel = 'Loading...';
     $scope.loading = true;
     $scope.pollsData = {
@@ -18,7 +21,6 @@ angular.module('fullstackApp')
     }
 
 
-    // TODO: Query USER polls, now queries ALL the polls
     $scope.pager = function(dir,page) {
 
       var queryPage = page || $scope.pollsData.current;
@@ -75,7 +77,7 @@ angular.module('fullstackApp')
         $scope.editStatus.newPoll = false;
       } else {
         $scope.currentEditPoll = {
-          question: 'Your Question Here...',
+          question: 'Ask a New Question...',
           options: [],
           votes: []
         };
@@ -101,7 +103,7 @@ angular.module('fullstackApp')
     };
 
     $scope.clearNewQuestion = function() {
-      $scope.currentEditPoll.question = 'Your Question Here...';
+      $scope.currentEditPoll.question = 'Ask a New Question...';
       $scope.editStatus.showNewQuestionInput = true;
       $scope.editStatus.newPollQuestionSaved = false;
     };
