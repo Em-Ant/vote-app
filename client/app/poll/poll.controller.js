@@ -8,7 +8,7 @@ angular.module('fullstackApp')
 
     //TODO: Create a LOADING status...
 
-    $scope.nextView = "Results"
+    $scope.nextView = 'Results';
     $scope.pageLink = $location.absUrl();
     Auth.isLoggedInAsync(function (logged) {
       $scope.logged = logged;
@@ -23,7 +23,7 @@ angular.module('fullstackApp')
         $scope.poll = res;
         if (res.isVotedByCurrentUser) {
           $scope.poll.showResult = true;
-          $scope.nextView = "Options"
+          $scope.nextView = 'Options';
         }
        });
     });
@@ -33,8 +33,11 @@ angular.module('fullstackApp')
     $scope.toggleView = function() {
 
       $scope.poll.showResult = !$scope.poll.showResult;
-      if($scope.poll.showResult) $scope.nextView = "Options";
-      else  $scope.nextView = "Results";
+      if($scope.poll.showResult) {
+        $scope.nextView = 'Options';
+      } else {
+        $scope.nextView = 'Results';
+      }
     };
 
     $scope.voteFor = function(q) {

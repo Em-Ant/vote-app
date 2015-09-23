@@ -25,11 +25,11 @@ var all = {
   ip: process.env.IP || '0.0.0.0',
 
   // Should we populate the DB with sample data?
-  seedDB: true,
+  seedDB: ( process.env.SEED === 'true' ) || true,
 
   // Secret for session, you will want to change this and make it an environment variable
   secrets: {
-    session: 'fullstack-secret'
+    session: process.env.SESSION_SECRET || 'fullstack-secret'
   },
 
   // List of user roles
@@ -42,12 +42,6 @@ var all = {
         safe: true
       }
     }
-  },
-
-  twitter: {
-    clientID:     process.env.TWITTER_ID || 'id',
-    clientSecret: process.env.TWITTER_SECRET || 'secret',
-    callbackURL:  (process.env.DOMAIN || '') + '/auth/twitter/callback'
   },
 
 };

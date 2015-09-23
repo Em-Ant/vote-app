@@ -18,9 +18,9 @@ User.find({}).remove(function() {
   }, {
     provider: 'local',
     role: 'admin',
-    name: 'Admin',
+    name: 'Administrator',
     email: 'admin@admin.com',
-    password: 'admin'
+    password: process.env.ADMIN_PWD || 'admin',
   }, function() {
       console.log('finished populating users');
     }
@@ -51,23 +51,23 @@ John.save(function(err){
       popularity: 25,
       authorName: John.name,
       authorId: John._id,
-      votedBy: [John._id]    
+      votedBy: [John._id]
     }, {
       question: 'Which is your favorite Pasta Condiment ?',
       options: ['Ragù', 'Pesto', 'Cheese'],
       votes: [7,8,6],
       popularity: 19,
       authorName: John.name,
-      authorId: John._id,  
-      votedBy: [John._id] 
+      authorId: John._id,
+      votedBy: [John._id]
     }, {
       question: 'Are you ready ?',
       options: ['Yep', 'Nope', 'Maybe...'],
       votes: [12,8,6],
       popularity: 26,
       authorName: John.name,
-      authorId: John._id, 
-      votedBy: [John._id]   
+      authorId: John._id,
+      votedBy: [John._id]
     }, {
       question: 'Are you a good Chess Player ?',
       options: ['Yes', 'No'],
@@ -82,23 +82,23 @@ John.save(function(err){
       votes:[8,11,20],
       popularity: 39,
       authorName: John.name,
-      authorId: John._id,  
-      votedBy: [John._id]  
+      authorId: John._id,
+      votedBy: [John._id]
     }, {
       question: 'Which is your favorite Programming Language ?',
       options: ['JavaScript', 'C++', 'php'],
       votes: [2,3,1],
       popularity: 6,
       authorName: John.name,
-      authorId: John._id, 
-      votedBy: [John._id]   
+      authorId: John._id,
+      votedBy: [John._id]
     }, {
       question: 'Do you think I can do this ?',
       options: ['Sure', 'No Way', 'Keep Calm and...'],
       votes: [12,8,6],
       popularity: 26,
       authorName: John.name,
-      authorId: John._id,    
+      authorId: John._id,
       votedBy: [John._id]
     });
   })

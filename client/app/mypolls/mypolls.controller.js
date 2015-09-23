@@ -12,13 +12,13 @@ angular.module('fullstackApp')
       results: [],
       current: '-',
       last: '-',
-    }
+    };
 
     var sortCrit = 'recent';
 
     var toogleSortCriterion = function() {
       sortCrit = sortCrit === 'recent' ? 'popular' : 'recent';
-    }
+    };
 
 
     $scope.pager = function(dir,page) {
@@ -26,9 +26,11 @@ angular.module('fullstackApp')
       var queryPage = page || $scope.pollsData.current;
       $scope.loading = true;
       $scope.activeTitle = $scope.sortToggleButtonLabel = 'Loading...';
-      if(dir === 'up') queryPage++
-      else if (dir === 'down') queryPage--;
-
+      if(dir === 'up') {
+        queryPage++;
+      } else if (dir === 'down') {
+        queryPage--;
+      }
       $http.get('/api/polls/mypolls', { params:{ page: queryPage, order: sortCrit }})
         .success(function(res) {
           $scope.pollsData = res;
@@ -118,13 +120,13 @@ angular.module('fullstackApp')
     $scope.quitEdit = function () {
       $scope.editStatus.editMode = false;
       $scope.currentEditPoll = null;
-    }
+    };
 
     $scope.submitEdited = function() {
 
-      if($scope.currentEditPoll.options.length < 2
-        || ($scope.editStatus.newPoll
-            && !$scope.editStatus.newPollQuestionSaved)) {
+      if($scope.currentEditPoll.options.length < 2 ||
+        ($scope.editStatus.newPoll &&
+          !$scope.editStatus.newPollQuestionSaved)) {
 
           $scope.editStatus.showAlert = true;
           $timeout(function(){
@@ -139,10 +141,10 @@ angular.module('fullstackApp')
           $scope.currentEditPoll = null;
           sortCrit = 'recent';
           $scope.pager(null,1);
-        })
+        });
       } else {
         var id = $scope.currentEditPoll._id;
-        $http.put('/api/polls/' + id, $scope.currentEditPoll).success(function(poll){
+        $http.put('/api/polls/' + id, $scope.currentEditPoll).success(function(){
           $scope.editStatus.editMode = false;
           $scope.currentEditPoll = null;
           sortCrit = 'recent';

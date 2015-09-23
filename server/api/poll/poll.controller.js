@@ -19,7 +19,7 @@ exports.index = function(req,res) {
   }
 
   query.paginate(options, function (err, results) {
-    if(err) { return handleError(res, err) };
+    if(err) { return handleError(res, err) }
     return res.status(200).json(results);
   });
 }
@@ -36,7 +36,7 @@ exports.readMyPolls = function(req,res) {
   }
 
   query.paginate(options, function (err, results) {
-    if(err) { return handleError(res, err) };
+    if(err) { return handleError(res, err) }
     return res.status(200).json(results);
   });
 }
@@ -45,10 +45,10 @@ exports.readMyPolls = function(req,res) {
 exports.show = function(req, res) {
   Poll.findById(req.params.id).exec(function (err, poll) {
     if(err) { return handleError(res, err); }
-    if(!poll) { return res.status(404).send('Not Found'); ; }
+    if(!poll) { return res.status(404).send('Not Found');  }
     var pollObj = poll.toObject();
 
-    if(req.params.user != 0) {
+    if(req.params.user !== '0') {
       var id = req.params.user;
       var isVoted = poll.votedBy.some(function(uid){
         return uid.equals(id);

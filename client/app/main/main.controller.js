@@ -14,22 +14,24 @@ angular.module('fullstackApp')
       results: [],
       current: '-',
       last: '-',
-    }
+    };
 
     var sortCrit = 'recent';
 
     var toogleSortCriterion = function() {
       sortCrit = sortCrit === 'recent' ? 'popular' : 'recent';
-    }
+    };
 
     $scope.pager = function(dir,page) {
 
       var queryPage = page || $scope.pollsData.current;
       $scope.loading = true;
       $scope.activeTitle = $scope.sortToggleButtonLabel = 'Loading...';
-      if(dir === 'up') queryPage++
-      else if (dir === 'down') queryPage--;
-
+      if(dir === 'up') {
+        queryPage++;
+      } else if (dir === 'down') {
+        queryPage--;
+      }
       $http.get('/api/polls/', { params:{ page: queryPage, order: sortCrit }})
         .success(function(res) {
           $scope.pollsData = res;
@@ -51,7 +53,7 @@ angular.module('fullstackApp')
 
     // Load the first polls
     $scope.pager(null,1);
-      
+
     /**
     * TO BE IMPLEMENTED
     *
