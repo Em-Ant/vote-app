@@ -19,7 +19,7 @@ User.find({}).remove(function() {
     provider: 'local',
     role: 'admin',
     name: 'Administrator',
-    email: 'admin@admin.com',
+    email: process.env.ADMIN_EML || 'admin@admin.com',
     password: process.env.ADMIN_PWD || 'admin',
   }, function() {
       console.log('finished populating users');
@@ -31,7 +31,7 @@ var John = new User({
     provider: 'local',
     name: 'John',
     email: 'john@test.com',
-    password: 'john'
+    password: process.env.JOHN_PWD || 'john'
 });
 
 John.save(function(err){
@@ -45,7 +45,7 @@ John.save(function(err){
       authorId: John._id,
       votedBy: [John._id]
     }, {
-      question: 'Which is you favorite Guitar Hero ?',
+      question: 'Who is you favourite Guitar Hero ?',
       options: ['John Petrucci', 'Steve Vai', 'Michael Angelo Batio'],
       votes:[8,11,6],
       popularity: 25,
@@ -53,7 +53,7 @@ John.save(function(err){
       authorId: John._id,
       votedBy: [John._id]
     }, {
-      question: 'Which is your favorite Pasta Condiment ?',
+      question: 'Which is your favourite Pasta Condiment ?',
       options: ['Ragù', 'Pesto', 'Cheese'],
       votes: [7,8,6],
       popularity: 19,
@@ -77,7 +77,7 @@ John.save(function(err){
       authorId: John._id,
       votedBy: [John._id]
     }, {
-      question: 'Which is your favorite Jersey Shore Charachter ?',
+      question: 'Who is your favorite Jersey Shore Charachter ?',
       options: ['Snooki', 'Mike The Situation', 'Vinny'],
       votes:[8,11,20],
       popularity: 39,
