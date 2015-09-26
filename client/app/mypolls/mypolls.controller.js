@@ -42,8 +42,8 @@ angular.module('fullstackApp')
 
     // add a readable permalink to the route page
     $scope.permalinker = function(text) {
-      return text.toLowerCase().replace(/[\.\s]*\?\s*/g,'')
-      .replace(/\./g,' ').replace(/\s+/g,'-').replace(/['"\\\*]/g,'');
+      return text.toLowerCase().replace(/[^a-zA-z0-9]/g,' ').trim()
+      .replace(/\s+/g,'-');
     };
 
     $scope.switchCrit = function() {
