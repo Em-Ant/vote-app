@@ -11,14 +11,16 @@ You can check the running project here: http://vote-plex.herokuapp.com/.
 #### Features
 
 * Custom Logo
-* Paginated Polls explorer
+* Paginated polls explorer
+* Pages sorting by date/popularity
 * Facebook, Twitter, Google+ share buttons
-* URL friendly readable permalink, with unique short id
+* URL friendly human-readable permalink, with unique short id
 * Animated Charts
 
 #### Note
 
 I arbitrarily decided to fulfill the requests from **Bonus User Story #1** only partially.
+
 I tried to model this app to be simple, but as close as possible to a *Real World* project.
 In my opinion, a serious polling service should allow voting to authenticated users only, and only
 a single time. So I decided to force the unauthenticated users to login/subscribe to vote, and tracked them.
