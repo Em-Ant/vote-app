@@ -61,8 +61,11 @@ angular.module('fullstackApp')
         });
       } else if (!$scope.logged){
 
-        // User must be authenticated. Redirect to login page
+        // User must be authenticated.
+        // after login user will be redirected here: store location
         $rootScope.oldPath = $location.path();
+
+        // Redirect to login page
         $location.path('/login');
       }
     };

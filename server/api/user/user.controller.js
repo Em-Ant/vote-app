@@ -3,6 +3,7 @@
 var User = require('./user.model');
 var passport = require('passport');
 var config = require('../../config/environment');
+var Poll = require('../poll/poll.model');
 var jwt = require('jsonwebtoken');
 
 var validationError = function(res, err) {
@@ -49,11 +50,17 @@ exports.show = function (req, res, next) {
 
 /**
  * Deletes a user
+ * (and all his polls)
  * restriction: 'admin'
  */
 exports.destroy = function(req, res) {
-  User.findByIdAndRemove(req.params.id, function(err, user) {
+  User.findById(req.params.id, function(err, user) {
     if(err) return res.status(500).send(err);
+    Poll.find({authorId: user._id},function(err,polls){
+      Poll.remove(polls,function(err){
+        if(err) return res.status(500).send(err);
+      });
+    });
     return res.status(204).send('No Content');
   });
 };

@@ -10,8 +10,8 @@
         <div class="panel-heading nav">
           <h4 class="navbar-text"><strong>My {{activeTitle}}</strong></h4>
           <div class="btn-group navbar-btn navbar-right">
-            <div  class="btn btn-default  bg-color-trans" ng-click="editPoll()"><span class="glyphicon glyphicon-plus blue"></span></div>
-            <div class="btn btn-default  bg-color-trans blue" ng-class="{ disabled: loading }" ng-click="switchCrit()">{{sortToggleButtonLabel}}</div>
+            <div  class="btn btn-default  bg-color-trans" ng-click="editPoll()"><span class="glyphicon glyphicon-plus"></span></div>
+            <div class="btn btn-default  bg-color-trans" ng-class="{ disabled: loading }" ng-click="switchCrit()">{{sortToggleButtonLabel}}</div>
           </div>
         </div>
 
@@ -23,8 +23,8 @@
                   <h4  class="navbar-text">{{thing.question}}</h4>
                 </a>
                 <div class="btn-group navbar-btn navbar-right">
-                  <div  class="btn btn-default  bg-color-trans" ng-click="editPoll($index)"><span class="glyphicon glyphicon-cog blue"></span></div>
-                  <div  class="btn btn-default  bg-color-trans" ng-click="deletePoll($index)"><span class="glyphicon glyphicon-trash red"></div>
+                  <div  class="btn btn-default  bg-color-trans" ng-click="editPoll($index)"><span class="glyphicon glyphicon-cog"></span></div>
+                  <div  class="btn btn-default  bg-color-trans" ng-click="deletePoll($index)"><span class="glyphicon glyphicon-trash"></div>
                 </div>
               </div>
             </li>
@@ -48,15 +48,17 @@
           <div  class="btn navbar-right btn-default bg-color-trans"
             ng-show="editStatus.newPoll" ng-class="{disabled: !editStatus.newPollQuestionSaved}"
               ng-click="clearNewQuestion()">
-            <span class="glyphicon glyphicon-trash red"></span>
+            <span class="glyphicon glyphicon-trash"></span>
           </div>
 
-          <div class="input-group navbar-left" ng-show="editStatus.newPoll && editStatus.showNewQuestionInput">
-            <input type="text" class="form-control" id="newPollInput" ng-model="newQuestion" placeholder="New Poll Question...">
-            <span class="input-group-btn" ng-click="saveNewQuestion()">
-              <div class="btn btn-default" type="button"><span class="glyphicon glyphicon-plus blue"></span></div>
-            </span>
-          </div><!-- /input-group -->
+          <form ng-submit="saveNewQuestion()">
+            <div class="input-group navbar-left" ng-show="editStatus.newPoll && editStatus.showNewQuestionInput">
+              <input type="text" class="form-control" id="newPollInput" ng-model="newQuestion" placeholder="New Poll Question...">
+              <span class="input-group-btn" ng-click="saveNewQuestion()">
+                <div class="btn btn-default" type="button"><span class="glyphicon glyphicon-plus"></span></div>
+              </span>
+            </div><!-- /input-group -->
+          </form>
 
         </div>
 
@@ -64,23 +66,26 @@
           <li class="list-group-item nav" ng-repeat="op in currentEditPoll.options">
             <h4 class="navbar-text" >{{op}}</h4>
             <div  class="btn btn-default navbar-btn navbar-right  btn-default bg-color-trans" ng-show="currentEditPoll.votes[$index] == 0" ng-click="removeOpt($index)">
-              <span class="glyphicon glyphicon-trash red"></span>
+              <span class="glyphicon glyphicon-trash"></span>
             </div>
           </li>
         </ul>
         <div class="panel-body">
           <br>
-          <div class="input-group">
-            <input type="text" class="form-control" ng-model="newOption" placeholder="New Poll Option...">
-            <span class="input-group-btn">
-              <div class="btn btn-default bg-color-trans" type="button" ng-click="pushNewOpt()"><span class="glyphicon glyphicon-plus blue"></span></div>
-            </span>
-          </div><!-- /input-group -->
+          <form ng-submit="pushNewOpt()">
+            <div class="input-group">
+              <input type="text" class="form-control" ng-model="newOption" placeholder="New Poll Option...">
+              <span class="input-group-btn">
+                <div class="btn btn-default bg-color-trans" type="button" ng-click="pushNewOpt()"><span class="glyphicon glyphicon-plus"></span></div>
+              </span>
+            </div><!-- /input-group -->
+          </form>
+
         </div>
         <div class="panel-footer nav">
           <div class="btn-group navbar-btn navbar-right">
-            <div  class="btn btn-default bg-color-trans" ng-click="quitEdit()"><span class="glyphicon glyphicon-remove red"></span></div>
-            <div  class="btn btn-default bg-color-trans" ng-click="submitEdited()"><span class="glyphicon glyphicon-save blue"></span></div>
+            <div  class="btn btn-default bg-color-trans" ng-click="quitEdit()"><span class="glyphicon glyphicon-remove"></span></div>
+            <div  class="btn btn-default bg-color-trans" ng-click="submitEdited()"><span class="glyphicon glyphicon-save"></span></div>
           </div>
         </div>
       </div>

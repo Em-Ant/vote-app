@@ -158,6 +158,7 @@ exports.destroyMine = function(req, res) {
 };
 
 // Deletes a poll from the DB.
+// Restricted to Admin
 exports.destroy = function(req, res) {
   Poll.findById(req.params.id, function (err, poll) {
     if(err) { return handleError(res, err); }

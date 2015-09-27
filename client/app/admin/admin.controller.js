@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('fullstackApp')
-  .controller('AdminCtrl', function ($scope, $http, Auth, User) {
+  .controller('AdminCtrl', function ($scope, $http, $timeout, Auth, User) {
 
     // Use the User $resource to fetch all users
     $scope.users = User.query();
@@ -12,6 +12,22 @@ angular.module('fullstackApp')
         if (u === user) {
           $scope.users.splice(i, 1);
         }
+      });
+    };
+
+    $scope.pollRemove = function(id) {
+      $http.delete('api/polls/' + id).success(function(res) {
+        $scope.pollId = '';
+        $scope.removed = 'success';
+        $timeout(function() {
+          $scope.removed = undefined;
+        },2000);
+      }).error(function() {
+        $scope.pollId = '';
+        $scope.removed = 'error';
+        $timeout(function() {
+          $scope.removed = undefined;
+        },2000);
       });
     };
   });
