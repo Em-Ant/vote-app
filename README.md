@@ -16,11 +16,16 @@ You can check the running project here: http://vote-plex.herokuapp.com/.
 * Facebook, Twitter, Google+ share buttons
 * URL friendly human-readable permalink, with unique short id
 * Animated Charts
+* Usable minimal Admin panel (private)
+
+#### Dummy Account
+
+The dummy account **test@test.com** is accessible with the standard password **test**.  
 
 #### Note
 
-I arbitrarily decided to fulfill the requests from **Bonus User Story #1** only partially.
+I arbitrarily decided to fulfill the **Bonus User Story #1** assigment only partially.
 
-I tried to model this app to be simple, but as close as possible to a *Real World* project.
-In my opinion, a serious polling service should allow voting to authenticated users only, and only
-a single time. So I decided to force the unauthenticated users to login/subscribe to vote, and tracked them.
+I tried to model this application to be simple, but as close as possible to a *Real World* project.
+In my opinion, a good polling service should restrict voting to authenticated users, and only
+a single time. So I decided to force the unauthenticated users to login/subscribe if willing to vote, and track their activity.
