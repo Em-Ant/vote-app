@@ -27,10 +27,11 @@ User.find({}).remove(function() {
   );
 });
 
+// Dummy Author of Initial Polls
 var John = new User({
     provider: 'local',
     name: 'John',
-    email: 'john@test.com',
+    email: process.env.JOHN_EML || 'john@test.com',
     password: process.env.JOHN_PWD || 'john'
 });
 
@@ -77,7 +78,7 @@ John.save(function(err){
       authorId: John._id,
       votedBy: [John._id]
     }, {
-      question: 'Who is your favorite Jersey Shore Charachter ?',
+      question: 'Who is your favourite Jersey Shore Charachter ?',
       options: ['Snooki', 'Mike The Situation', 'Vinny'],
       votes:[8,11,20],
       popularity: 39,
@@ -85,7 +86,7 @@ John.save(function(err){
       authorId: John._id,
       votedBy: [John._id]
     }, {
-      question: 'Which is your favorite Programming Language ?',
+      question: 'Which is your favourite Programming Language ?',
       options: ['JavaScript', 'C++', 'php'],
       votes: [2,3,1],
       popularity: 6,
@@ -94,7 +95,7 @@ John.save(function(err){
       votedBy: [John._id]
     }, {
       question: 'Do you think I can do this ?',
-      options: ['Sure', 'No Way', 'Keep Calm and...'],
+      options: ['Sure, I do believe in you', 'No Way', 'Keep Trying...'],
       votes: [12,8,6],
       popularity: 26,
       authorName: John.name,
