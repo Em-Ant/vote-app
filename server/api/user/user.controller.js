@@ -49,6 +49,26 @@ exports.show = function (req, res, next) {
 };
 
 /**
+ * Get a single user and his polls
+ * restricted to admin
+ */
+exports.showAndPolls = function (req, res, next) {
+  var userId = req.params.id;
+
+  User.findById(userId, '-salt -hashedPassword', function (err, user) {
+    if (err) return next(err);
+    if (!user) return res.status(401).send('Unauthorized');
+    var responseObj = user.toObject();
+    responseObj.polls = [];
+    Poll.find({authorId: userId},'_id question', function(err, polls){
+      if (err) return next(err);
+      responseObj.polls = polls;
+      res.json(responseObj);
+    });
+  });
+};
+
+/**
  * Deletes a user
  * (and all his polls)
  * restriction: 'admin'
@@ -56,7 +76,9 @@ exports.show = function (req, res, next) {
 exports.destroy = function(req, res) {
   User.findById(req.params.id, function(err, user) {
     if(err) return res.status(500).send(err);
-    Poll.find({authorId: user._id},function(err,polls){
+    var id = user._id;
+    user.remove();
+    Poll.find({authorId: id},function(err,polls){
       Poll.remove(polls,function(err){
         if(err) return res.status(500).send(err);
       });
