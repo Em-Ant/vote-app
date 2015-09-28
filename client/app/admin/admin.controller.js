@@ -42,13 +42,14 @@ angular.module('fullstackApp')
       $http.get('api/users/p/' + id)
       .success(function(res){
         $scope.userInfo = res;
-        console.log(res);
       });
     }
 
     $scope.pollRemove = function(id) {
       $http.delete('api/polls/' + id).success(function(res) {
         $scope.pollId = '';
+        var uid = $scope.pollInfo.authorId;
+        $scope.userInfo = $scope.requestUserInfo(uid);
         $scope.pollInfo = undefined;
       });
     };

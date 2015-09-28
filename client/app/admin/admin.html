@@ -3,28 +3,16 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
-      <form ng-submit="requestPollInfo(pollId)">
-        <div class="form-group">
-          <label for="pollIdInput">Poll Info by Id</label>
-          <input type="text" ng-model="pollId" class="form-control" id="pollIdInput" placeholder="Poll Id...">
-        </div>
-      </form>
-      <div ng-show="pollInfo">
-        <ul class="list-group" >
-          <li class="list-group-item" ><strong>Question:</strong> {{pollInfo.question}}</li>
-          <li class="list-group-item" ><strong>Author Name:</strong> {{pollInfo.authorName}}</li>
-          <li class="list-group-item" ><strong>Autor Id:</strong> {{pollInfo.authorId}}</li>
-          <li class="list-group-item" ><strong>Created On:</strong> {{pollInfo.createdOn | date:short}}</li>
-          <li class="list-group-item" ><strong>Popularity:</strong> {{pollInfo.popularity}}</li>
-          <li class="list-group-item"  ng-repeat="opt in pollInfo.options">
-            <strong>Option #{{$index + 1}}:</strong> {{opt}}<br><strong>Votes:</strong> {{pollInfo.votes[$index]}}
-          </li>
-        </ul>
-        <div class="pull-right">
-          <div class="btn btn-default" ng-click="closeInfo('poll')"><strong>Close</strong></div>
-          <div class="btn btn-danger" ng-click="pollRemove(pollId)"><strong>Delete</strong></div>
-        </div>
-      </div>
+      <label>Users List</label>
+      <ul class="list-group">
+        <li class="list-group-item" ng-repeat="user in users">
+            <strong>{{user.name}}</strong>
+            <a ng-click="requestUserInfo(user._id)"><span class="glyphicon glyphicon-info-sign pull-right"></span></a>
+            <br>
+            <span class="text-muted">{{user._id}}</span>
+
+        </li>
+      </ul>
     </div>
   </div>
   <hr></hr>
@@ -32,8 +20,8 @@
     <div class="col-md-8 col-md-offset-2">
       <form ng-submit="requestUserInfo(userId)">
         <div class="form-group">
-          <label for="userIdInput">User Info by Id</label>
-          <input type="text" ng-model="userId" class="form-control" id="userIdInput" placeholder="User Id...">
+          <label for="userIdInput">User Info</label>
+          <input type="text" ng-model="userId" class="form-control" id="userIdInput" placeholder="Search User by Id...">
         </div>
       </form>
       <div ng-show="userInfo">
@@ -44,10 +32,13 @@
           <li class="list-group-item" ><strong>Provider:</strong> {{userInfo.provider}}</li>
           <li class="list-group-item" ><strong>Role:</strong> {{userInfo.role}}</li>
           <li class="list-group-item"  ng-repeat="poll in userInfo.polls">
-            <strong>Poll #{{$index + 1}} Id:</strong> {{poll._id}}<br><strong>Question: </strong> {{poll.question}}
+            <strong>Poll #{{$index + 1}} Id:</strong> {{poll._id}}
+            <a ng-click="requestPollInfo(poll._id)"><span class="glyphicon glyphicon-info-sign pull-right"></span></a>
+            <br><strong>Question: </strong> {{poll.question}}
+
           </li>
         </ul>
-        <div class="pull-right">
+        <div class="btn-group pull-right">
           <div class="btn btn-default" ng-click="closeInfo('user')"><strong>Close</strong></div>
           <div class="btn btn-danger" ng-click="delete(userInfo)"><strong>Delete</strong></div>
         </div>
@@ -55,18 +46,37 @@
     </div>
   </div>
   <hr></hr>
-
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
-      <label>Users List</label>
-      <ul class="list-group">
-        <li class="list-group-item" ng-repeat="user in users">
-            <strong>{{user.name}}</strong><br>
-            <span class="text-muted">{{user._id}}</span>
-            <a ng-click="delete(user)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
-        </li>
-      </ul>
+      <form ng-submit="requestPollInfo(pollId)">
+        <div class="form-group">
+          <label for="pollIdInput">Poll Info</label>
+          <input type="text" ng-model="pollId" class="form-control" id="pollIdInput" placeholder="Search Poll by Id...">
+        </div>
+      </form>
+      <div ng-show="pollInfo">
+        <ul class="list-group" >
+          <li class="list-group-item" ><strong>Id:</strong> {{pollInfo._id}}</li>
+          <li class="list-group-item" ><strong>Question:</strong> {{pollInfo.question}}</li>
+          <li class="list-group-item" ><strong>Author Name:</strong> {{pollInfo.authorName}}</li>
+          <li class="list-group-item" ><strong>Autor Id:</strong> {{pollInfo.authorId}}</li>
+          <li class="list-group-item" ><strong>Created On:</strong> {{pollInfo.createdOn | date:short}}</li>
+          <li class="list-group-item" ><strong>Popularity:</strong> {{pollInfo.popularity}}</li>
+          <li class="list-group-item"  ng-repeat="opt in pollInfo.options">
+            <strong>Option #{{$index + 1}}:</strong> {{opt}}<br><strong>Votes:</strong> {{pollInfo.votes[$index]}}
+          </li>
+        </ul>
+        <div class="btn-group pull-right">
+          <div class="btn btn-default" ng-click="closeInfo('poll')"><strong>Close</strong></div>
+          <div class="btn btn-danger" ng-click="pollRemove(pollInfo._id)"><strong>Delete</strong></div>
+        </div>
+      </div>
     </div>
   </div>
-
 </div>
+
+<footer class="footer">
+  <div class="container">
+    <p><a href="http://vote-plex.herokuapp.com/">Voteplex</a> by <a href="http://emant.altervista.org">emant</a> | <a href="https://twitter.com/js999x">@js999x</a></p>
+  </div>
+</footer>

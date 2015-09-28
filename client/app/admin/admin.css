@@ -1,1 +1,4 @@
-.trash { color:rgb(209, 91, 71); }
+a span.glyphicon.glyphicon-info-sign {
+  font-size: 20px;
+  cursor: pointer;
+}
