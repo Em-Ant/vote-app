@@ -34,11 +34,11 @@ h1, h2, h3, h4, h5, h6 {
     color: #F5F5F5;
     text-align: center;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
-    background: #253e50;
+    background: #4e87a3;
 }
 
 .lead {
-  color: #abb7b7;
+  color: #F5F5F5;
 }
 
 .footer {
@@ -63,7 +63,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .showcase {
   color: #f2f1ef;
-  background-color: #3a5568;
+  background-color:#4e87a3;
 }
 
 
